@@ -1,0 +1,2 @@
+class SheetTagsController < ApplicationController
+end

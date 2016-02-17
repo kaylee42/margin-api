@@ -1,4 +1,13 @@
 Rails.application.routes.draw do
+  resources :sheet_tags, except: [:new, :edit]
+  resources :tags, except: [:new, :edit]
+  resources :todos, except: [:new, :edit]
+  resources :todo_lists, except: [:new, :edit]
+  resources :notebook_sheets, except: [:new, :edit]
+  resources :sheets, except: [:new, :edit]
+  resources :notebook_users, except: [:new, :edit]
+  resources :notebooks, except: [:new, :edit]
+  resources :users, except: [:new, :edit]
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
