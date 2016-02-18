@@ -31,6 +31,6 @@ class Api::V1::SheetsController < ApplicationController
     def sheet_params
       params.require(:sheet).permit(:title, :content)
     end
-  end
+  
 
 end
