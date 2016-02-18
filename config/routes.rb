@@ -1,13 +1,10 @@
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
-      resources :sheet_tags, except: [:new, :edit]
       resources :tags, except: [:new, :edit]
       resources :todos, except: [:new, :edit]
       resources :todo_lists, except: [:new, :edit]
-      resources :notebook_sheets, except: [:new, :edit]
       resources :sheets, except: [:new, :edit]
-      resources :notebook_users, except: [:new, :edit]
       resources :notebooks, except: [:new, :edit]
       resources :users, except: [:new, :edit]
     end
