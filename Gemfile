@@ -9,10 +9,10 @@ gem 'spring', :group => :development
 
 
 gem 'pg'
-
+# for json serialization
 gem 'active_model_serializers'
-
-
+# for cross-origin json requests
+gem 'rack-cors', :require => 'rack/cors'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
