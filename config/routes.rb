@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+
+root "notebooks#index"
+
+post "users/sign_in", to: "sessions#create"
   namespace :api do
     namespace :v1 do
       resources :tags, except: [:new, :edit]
@@ -9,6 +13,8 @@ Rails.application.routes.draw do
       resources :users, except: [:new, :edit]
     end
   end
+
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
