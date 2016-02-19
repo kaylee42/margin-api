@@ -18,8 +18,7 @@ gem 'faker'
 # To use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 # for sessions & authentications
-gem 'devise'
-
+gem 'pry-rails'
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'
 

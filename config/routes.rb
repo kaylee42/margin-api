@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
 
-  devise_for :users, controllers: {sessions: 'sessions'}
 root "notebooks#index"
 
+post "users/sign_in", to: "sessions#create"
   namespace :api do
     namespace :v1 do
       resources :tags, except: [:new, :edit]
@@ -13,6 +13,8 @@ root "notebooks#index"
       resources :users, except: [:new, :edit]
     end
   end
+
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -1,15 +1,20 @@
-class SessionsController < Devise::SessionsController
-  respond_to :html, :json
+class SessionsController < ApplicationController
+  skip_before_action :authenticate!
 
   def create
-    super do |user|
-      if request.format.json?
-        data = {
-          token: user.authentication_token,
-          email: user.email
-        }
-        render json: data, status: 201 and return
-      end
+    user = User.authenticate(user_params)
+    if user
+      data = {
+        token: user.authentication_token,
+        email: user.email
+      }
+      render json: data, status: 201
     end
+  end
+
+  private
+
+  def user_params
+    params.require(:user).permit(:email, :password)
   end
 end
