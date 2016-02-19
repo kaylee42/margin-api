@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
-  devise_for :users
-root "notebooks#index" 
+  devise_for :users, controllers: {sessions: 'sessions'}
+root "notebooks#index"
 
   namespace :api do
     namespace :v1 do
