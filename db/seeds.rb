@@ -1,4 +1,4 @@
-20.times {User.create(name: Faker::Name.name)}
+20.times {User.create(name: Faker::Name.name, password: "12345678", email: Faker::Internet.email)}
 50.times {Notebook.create(title: Faker::Hacker.adjective, description: Faker::Hacker.say_something_smart)}
 15.times {Tag.create(title: Faker::Hacker.noun)}
 15.times {Tag.create(title: Faker::Hacker.abbreviation)}
