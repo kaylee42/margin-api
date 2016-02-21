@@ -3,5 +3,4 @@ class TodoList < ActiveRecord::Base
   belongs_to :user
 
   validates_presence_of :title, :user_id
-  validates_associated :user
 end
