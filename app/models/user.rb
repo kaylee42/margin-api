@@ -5,7 +5,9 @@ class User < ActiveRecord::Base
   has_many :todos, through: :todo_lists
   before_save :ensure_authentication_token
   has_secure_password
-  # validates_presence_of :name
+  validates_presence_of :name, :email, :password_confirmation
+  validates :password, length: {minimum: 8}
+  validates_uniqueness_of :email
 
   def self.authenticate(info)
     user = self.find_by(email: info[:email])
