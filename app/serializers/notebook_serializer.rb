@@ -5,7 +5,4 @@ class NotebookSerializer < ActiveModel::Serializer
   has_many :users, serializer: UserLiteSerializer
   has_many :tags, serializer: TagLiteSerializer
 
-  def filter(keys)
-    binding.pry
-  end
 end

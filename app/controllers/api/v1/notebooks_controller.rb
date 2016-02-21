@@ -1,6 +1,7 @@
 class Api::V1::NotebooksController < ApplicationController
   def index
-    render json: Notebook.all
+    notebooks = NotebookUser.where(user: current_user).map {|notebook_user| notebook_user.notebook}
+    render json: notebooks
   end
 
   def show
