@@ -9,6 +9,8 @@ class SessionsController < ApplicationController
         email: user.email
       }
       render json: data, status: 201
+    else
+      render json: {errors: {"login" => "could not be validated"}}, status: :unprocessable_entity
     end
   end
 
