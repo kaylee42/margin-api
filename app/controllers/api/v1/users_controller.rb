@@ -1,11 +1,15 @@
 class Api::V1::UsersController < ApplicationController
-  def index
-
-    render json: User.all
-  end
+  # def index
+  #   render json: User.all
+  # end
 
   def show
-    render json: User.find(params[:id])
+    user = User.find(params[:id])
+    if user == current_user
+      render json: user
+    else
+      render nothing: true
+    end
   end
 
   def create
@@ -19,17 +23,22 @@ class Api::V1::UsersController < ApplicationController
 
   def update
     user = User.find(params[:id])
-    if user.update(user_params)
-      render json: user
+    if user == current_user
+      if user.update(user_params)
+        render json: user
+      else
+        render json: {errors: user.errors}, status: :unprocessable_entity
+      end
     else
-      render json: {errors: user.errors}, status: :unprocessable_entity
+      render nothing: true
     end
   end
 
   def destroy
-
     user = User.find(params[:id])
-    user.destroy
+    if user == current_user
+      user.destroy
+    end
     render nothing: true
   end
 
