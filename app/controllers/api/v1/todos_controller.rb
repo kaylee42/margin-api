@@ -1,10 +1,15 @@
 class Api::V1::TodosController < ApplicationController
   def index
-    render json: Todo.where(users: current_user)
+    render json: current_user
   end
 
   def show
-    render json: Todo.find(params[:id])
+    todo = Todo.find(params[:id])
+    if current_user.todos.include? todo
+      render json: todo
+    else
+      render nothing: true
+    end
   end
 
   def create
@@ -15,15 +20,22 @@ class Api::V1::TodosController < ApplicationController
 
   def update
     todo = Todo.find(params[:id])
-    todo.update(todo_params)
-    render json: todo
+    if current_user.todos.include? todo
+      todo.update(todo_params)
+      render json: todo
+    else
+      render nothing: true
+    end
   end
 
   def destroy
     todo = Todo.find(params[:id])
-    todo.destroy
+    if current_user.todos.include? todo
+      todo.destroy
+    end
     render nothing: true
   end
+
 
 
   private

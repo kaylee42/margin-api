@@ -1,10 +1,15 @@
 class Api::V1::TagsController < ApplicationController
   def index
-    render json: Tag.all
+    render json: current_user.tags
   end
 
   def show
-    render json: Tag.find(params[:id])
+    tag = Tag.find(params[:id])
+    if current_user.tags.include? tag
+      render json: tag
+    else
+      render nothing: true
+    end
   end
 
   def create
@@ -15,15 +20,22 @@ class Api::V1::TagsController < ApplicationController
 
   def update
     tag = Tag.find(params[:id])
-    tag.update(tag_params)
-    render json: tag
+    if current_user.tags.include? tag
+      tag.update(tag_params)
+      render json: tag
+    else
+      render nothing: true
+    end
   end
 
   def destroy
     tag = Tag.find(params[:id])
-    tag.destroy
+    if current_user.tags.include? tag
+      tag.destroy
+    end
     render nothing: true
   end
+
 
 
   private

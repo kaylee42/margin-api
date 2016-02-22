@@ -1,10 +1,15 @@
 class Api::V1::TodoListsController < ApplicationController
   def index
-    render json: TodoList.all
+    render json: current_user.todo_lists
   end
 
   def show
-    render json: TodoList.find(params[:id])
+    todo_list = TodoList.find(params[:id])
+    if current_user.todo_lists.include? todo_list
+      render json: todo_list
+    else
+      render nothing: true
+    end
   end
 
   def create
@@ -15,15 +20,22 @@ class Api::V1::TodoListsController < ApplicationController
 
   def update
     todo_list = TodoList.find(params[:id])
-    todo_list.update(todo_list_params)
-    render json: todo_list
+    if current_user.todo_lists.include? todo_list
+      todo_list.update(todo_list_params)
+      render json: todo_list
+    else
+      render nothing: true
+    end
   end
 
   def destroy
     todo_list = TodoList.find(params[:id])
-    todo_list.destroy
+    if current_user.todo_lists.include? todo_list
+      todo_list.destroy
+    end
     render nothing: true
   end
+
 
 
   private
