@@ -17,7 +17,7 @@ class Api::V1::SheetsController < ApplicationController
       if sheet.save
         render json: sheet
       else
-        render json: {errors: sheet.errors}, status: :unprocessable_entity
+        render json: {errors: sheet.errors.full_messages}, status: :unprocessable_entity
       end
     end
 
@@ -27,7 +27,7 @@ class Api::V1::SheetsController < ApplicationController
         if sheet.update(sheet_params)
           render json: sheet
         else
-          render json: {errors: sheet.errors}, status: :unprocessable_entity
+          render json: {errors: sheet.errors.full_messages}, status: :unprocessable_entity
         end
       else
         render nothing: true

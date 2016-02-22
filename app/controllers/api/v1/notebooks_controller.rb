@@ -17,7 +17,7 @@ class Api::V1::NotebooksController < ApplicationController
     if notebook.save
       render json: notebook
     else
-      render json: {errors: notebook.errors}, status: :unprocessable_entity
+      render json: {errors: notebook.errors.full_messages}, status: :unprocessable_entity
     end
   end
 
@@ -27,7 +27,7 @@ class Api::V1::NotebooksController < ApplicationController
       if notebook.update(notebook_params)
         render json: notebook
       else
-        render json: {errors: notebook.errors}, status: :unprocessable_entity
+        render json: {errors: notebook.errors.full_messages}, status: :unprocessable_entity
       end
     else
       render nothing: true
