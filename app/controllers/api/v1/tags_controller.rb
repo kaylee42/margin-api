@@ -14,15 +14,21 @@ class Api::V1::TagsController < ApplicationController
 
   def create
     tag = Tag.new(tag_params)
-    tag.save
-    render json: tag
+    if tag.save
+      render json: tag
+    else
+      render json: {errors: tag.errors}, status: :unprocessable_entity
+    end
   end
 
   def update
     tag = Tag.find(params[:id])
     if current_user.tags.include? tag
-      tag.update(tag_params)
-      render json: tag
+      if tag.update(tag_params)
+        render json: tag
+      else
+        render json: {errors: tag.errors}, status: :unprocessable_entity
+      end
     else
       render nothing: true
     end

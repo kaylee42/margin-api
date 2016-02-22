@@ -14,15 +14,21 @@ class Api::V1::TodosController < ApplicationController
 
   def create
     todo = Todo.new(todo_params)
-    todo.save
-    render json: todo
+    if todo.save
+      render json: todo
+    else
+      render json: {errors: todo.errors}, status: :unprocessable_entity
+    end
   end
 
   def update
     todo = Todo.find(params[:id])
     if current_user.todos.include? todo
-      todo.update(todo_params)
-      render json: todo
+      if todo.update(todo_params)
+        render json: todo
+      else
+        render json: {errors: todo.errors}, status: :unprocessable_entity
+      end
     else
       render nothing: true
     end

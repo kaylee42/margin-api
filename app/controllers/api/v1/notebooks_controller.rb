@@ -14,15 +14,21 @@ class Api::V1::NotebooksController < ApplicationController
 
   def create
     notebook = Notebook.new(notebook_params)
-    notebook.save
-    render json: notebook
+    if notebook.save
+      render json: notebook
+    else
+      render json: {errors: notebook.errors}, status: :unprocessable_entity
+    end
   end
 
   def update
     notebook = Notebook.find(params[:id])
     if current_user.notebooks.include? notebook
-      notebook.update(notebook_params)
-      render json: notebook
+      if notebook.update(notebook_params)
+        render json: notebook
+      else
+        render json: {errors: notebook.errors}, status: :unprocessable_entity
+      end
     else
       render nothing: true
     end

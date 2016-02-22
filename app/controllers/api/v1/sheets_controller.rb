@@ -14,15 +14,21 @@ class Api::V1::SheetsController < ApplicationController
 
     def create
       sheet = Sheet.new(sheet_params)
-      sheet.save
-      render json: sheet
+      if sheet.save
+        render json: sheet
+      else
+        render json: {errors: sheet.errors}, status: :unprocessable_entity
+      end
     end
 
     def update
       sheet = Sheet.find(params[:id])
       if current_user.sheets.include? sheet
-        sheet.update(sheet_params)
-        render json: sheet
+        if sheet.update(sheet_params)
+          render json: sheet
+        else
+          render json: {errors: sheet.errors}, status: :unprocessable_entity
+        end
       else
         render nothing: true
       end
