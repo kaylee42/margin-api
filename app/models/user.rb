@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
   has_many :notebook_users
   has_many :notebooks, through: :notebook_users
+  has_many :sheets, through: :notebooks
+  has_many :tags, through: :sheets
   has_many :todo_lists
   has_many :todos, through: :todo_lists
   before_save :ensure_authentication_token

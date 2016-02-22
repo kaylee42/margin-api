@@ -4,4 +4,5 @@ class NotebookSerializer < ActiveModel::Serializer
   has_many :sheets, serializer: SheetMediumSerializer
   has_many :users, serializer: UserLiteSerializer
   has_many :tags, serializer: TagLiteSerializer
+
 end

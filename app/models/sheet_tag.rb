@@ -4,5 +4,4 @@ class SheetTag < ActiveRecord::Base
 
   validates_presence_of :sheet_id, :tag_id
   validates :tag_id, uniqueness: {scope: :sheet_id}
-  validates_associated :sheet, :tag
 end
