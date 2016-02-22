@@ -15,6 +15,7 @@ class Api::V1::NotebooksController < ApplicationController
   def create
     notebook = Notebook.new(notebook_params)
     if notebook.save
+      NotebookUser.create(notebook: notebook, user: current_user)
       render json: notebook
     else
       render json: {errors: notebook.errors.full_messages}, status: :unprocessable_entity
