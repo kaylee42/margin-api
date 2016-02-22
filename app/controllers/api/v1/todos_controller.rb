@@ -17,7 +17,7 @@ class Api::V1::TodosController < ApplicationController
     if todo.save
       render json: todo
     else
-      render json: {errors: todo.errors}, status: :unprocessable_entity
+      render json: {errors: todo.errors.full_messages}, status: :unprocessable_entity
     end
   end
 
@@ -27,7 +27,7 @@ class Api::V1::TodosController < ApplicationController
       if todo.update(todo_params)
         render json: todo
       else
-        render json: {errors: todo.errors}, status: :unprocessable_entity
+        render json: {errors: todo.errors.full_messages}, status: :unprocessable_entity
       end
     else
       render nothing: true

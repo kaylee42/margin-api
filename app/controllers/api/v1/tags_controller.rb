@@ -17,7 +17,7 @@ class Api::V1::TagsController < ApplicationController
     if tag.save
       render json: tag
     else
-      render json: {errors: tag.errors}, status: :unprocessable_entity
+      render json: {errors: tag.errors.full_messages}, status: :unprocessable_entity
     end
   end
 
@@ -27,7 +27,7 @@ class Api::V1::TagsController < ApplicationController
       if tag.update(tag_params)
         render json: tag
       else
-        render json: {errors: tag.errors}, status: :unprocessable_entity
+        render json: {errors: tag.errors.full_messages}, status: :unprocessable_entity
       end
     else
       render nothing: true
