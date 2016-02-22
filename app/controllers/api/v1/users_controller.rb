@@ -5,23 +5,25 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def show
-
     render json: User.find(params[:id])
   end
 
   def create
-
-
     user = User.new(user_params)
-    user.save
-    render json: user
+    if user.save
+      render json: user
+    else
+      render json: {errors: user.errors}, status: :unprocessable_entity
+    end
   end
 
   def update
-
     user = User.find(params[:id])
-    user.update(user_params)
-    render json: user
+    if user.update(user_params)
+      render json: user
+    else
+      render json: {errors: user.errors}, status: :unprocessable_entity
+    end
   end
 
   def destroy
