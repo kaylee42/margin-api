@@ -13,7 +13,6 @@ class Api::V1::SheetsController < ApplicationController
     end
 
     def create
-      binding.pry
       sheet = Sheet.new(sheet_params)
       if sheet.save
         notebook = Notebook.find(params[:sheet][:notebookid])
