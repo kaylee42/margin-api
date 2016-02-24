@@ -15,6 +15,8 @@ class Api::V1::SheetsController < ApplicationController
     def create
       sheet = Sheet.new(sheet_params)
       if sheet.save
+        notebook = Notebook.find(params[:sheet][:notebookid])
+        NotebookSheet.create(sheet: sheet, notebook: notebook)
         render json: sheet
       else
         render json: {errors: sheet.errors.full_messages}, status: :unprocessable_entity
